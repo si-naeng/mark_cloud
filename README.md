@@ -114,8 +114,12 @@ GET /trademarks/search?publication_start_date=2008-01-01
 ## 문제 해결 과정에서 고민했던 점
 
 ### 데이터 전처리
-영어 발음(외래어 표기) 변환 지원
-사용자 입력이 한글이든 영어든 원하는 상표를 검색할 수 있도록 하기 위해, productNameEng 값을 기반으로 한글 발음을 추정해 productName 필드를 보완하려 했습니다.
+
+검색 품질을 높이기 위해 사용자 입력이 한글이든 영어든 원하는 상표를 검색할 수 있도록, productNameEng 값을 기반으로 한글 발음을 추정해 productName 필드를 보완하려 했습니다.
+
+그런데 Hangulize나 외부 Transliterator API가 설치 오류 또는 응답 불안정 이슈가 있어, 수동 변환
+밖에 답을 찾지 못했습니다.
+
 이 과정에서 productName과 productNameEng가 모두 비어 있는 경우가 존재했는데, 해당 항목들은 단순히 결측치로 간주하고 제거하기에는 상품 분류 코드, 출원번호 등 다른 메타 정보가 여전히 유효한 데이터들이었기 때문에,
 데이터 정합성을 해치지 않기 위해 전처리 및 삭제는 보류했습니다.
 
@@ -147,7 +151,3 @@ GET /trademarks/search?publication_start_date=2008-01-01
 `registrationNumber`      |    106 |
 `asignProductMainCodeList`|    1   |
 
-### 검색 정확도
-검색 품질을 높이기 위해 외래어 표기를 자동으로 생성해 넣고 싶었으나, 
-Hangulize나 외부 Transliterator API가 설치 오류 또는 응답 불안정 이슈가 있어, 수동 변환
-밖에 답을 찾지 못했습니다.
